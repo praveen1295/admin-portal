@@ -14,9 +14,9 @@ function App() {
         <Navbar />
         <hr />
         <Routes>
-          <Route exact path="/" element={<Login />} />
+          <Route exact path="/ll" element={<Login />} />
 
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<Dashboard />} />
 
           <Route path="/create-user" element={<CreateUser />} />
 
