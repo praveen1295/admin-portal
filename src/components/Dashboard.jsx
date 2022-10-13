@@ -1,61 +1,137 @@
-import { Button } from "bootstrap";
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import UserDetails from "./UserDetails";
 
-function Dashboard() {
-  const user = {
-    userName: "s",
-    firstName: "s",
-    lastName: "h",
-    gender: "m",
-    status: true,
-    address: "",
-    email: "",
-    password: "",
+function Dashboard({ userList, setUserList }) {
+  const [showDetails, setShowDetails] = useState(false);
+  const [search1, setSearch1] = useState(false);
+  const [search2, setSearch2] = useState(false);
+  const [currUser, setCurrUser] = useState({});
+
+  const navigate = useNavigate();
+
+  const userDetail = (user) => {
+    setShowDetails(true);
+    setCurrUser(user);
   };
+  const handleDelete = (id) => {
+    const newList = userList.filter((user) => id !== user.id);
+    setUserList(newList);
+  };
+
   return (
     <div>
-      <table class="table table-hover table-bordered">
+      <div>
+        <button
+          type="button"
+          className="btn btn-outline-primary"
+          onClick={() => navigate("/create-user")}
+        >
+          Create User
+        </button>
+        <div>
+          <h3>Filter</h3>
+          Gender
+        </div>
+      </div>
+      {showDetails && (
+        <UserDetails setShowDetails={setShowDetails} user={currUser} />
+      )}
+      <table className="table table-hover table-bordered">
         <thead>
           <tr>
             <th scope="col">No.</th>
-            <th scope="col">Username</th>
-            <th scope="col">First Name</th>
+            <th scope="col">
+              {search1 ? (
+                <div className="d-flex align-items-center">
+                  <input
+                    type="search"
+                    className="form-control w-50"
+                    placeholder="Username"
+                  />
+                  <i
+                    className="fa-solid fa-xmark text-primary ps-2"
+                    onClick={() => setSearch1(false)}
+                  ></i>
+                </div>
+              ) : (
+                <div className="d-flex justify-content-between align-items-center">
+                  <span>Username</span>
+                  <i
+                    className="fa-sharp fa-solid fa-magnifying-glass"
+                    onClick={() => setSearch1(true)}
+                  ></i>
+                </div>
+              )}
+            </th>
+            <th scope="col">
+              {search2 ? (
+                <div className="d-flex align-items-center">
+                  <input
+                    type="search"
+                    className="form-control w-50"
+                    placeholder="Name"
+                  />
+                  <i
+                    className="fa-solid fa-xmark text-primary ps-2"
+                    onClick={() => setSearch2(false)}
+                  ></i>
+                </div>
+              ) : (
+                <div className="d-flex justify-content-between align-items-center">
+                  <span>First Name</span>
+                  <i
+                    className="fa-sharp fa-solid fa-magnifying-glass"
+                    onClick={() => setSearch2(true)}
+                  ></i>
+                </div>
+              )}
+            </th>
 
             <th scope="col">Last Name</th>
             <th scope="col">
-              <div class="dropdown">
-                <span
-                  class="dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Dropdown link
-                </span>
-                <ul class="dropdown-menu">
-                  <li class="dropdown-item">hh</li>
-                  <li class="dropdown-item">Another action</li>
-                </ul>
-              </div>
+              Status
+              <select className="border border-0 mx-2">
+                <option className="border border-0" value="0">
+                  All
+                </option>
+                <option className="border border-0" value="1">
+                  Active
+                </option>
+                <option className="border border-0" value="2">
+                  Inactive
+                </option>
+              </select>
             </th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
-          {/* {userlist.map((user, idx) => {
-            return ( */}
-          <tr>
-            <th scope="row">{1}</th>
-            <td>{user.userName}</td>
-            <td>{user.firstName}</td>
-            <td>{user.lastName}</td>
-            <td>{user.status}</td>
-            <td>
-              <button class="btn btn-info m-2">View</button>
-              <button class="btn btn-danger">Delete</button>
-            </td>
-          </tr>
-          {/* );
-          })}{" "} */}
+          {userList.map((user, idx) => {
+            return (
+              <tr key={idx}>
+                <th scope="row">{idx + 1}</th>
+                <td>{user.userName}</td>
+                <td>{user.firstName}</td>
+                <td>{user.lastName}</td>
+                <td>{user.status}</td>
+                <td>
+                  <button
+                    className="btn btn-info m-2"
+                    onClick={() => userDetail(user)}
+                  >
+                    View
+                  </button>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleDelete(user.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
