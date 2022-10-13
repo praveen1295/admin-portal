@@ -1,19 +1,20 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import "../App.css";
 
-function Navbar() {
+function Navbar({ login, setLogin }) {
   return (
-    <nav class="navbar navbar-expand-lg bg-light">
-      <div class="container-fluid">
+    <nav className="navbar navbar-expand-lg bg-light">
+      <div className="container-fluid">
         <NavLink
-          class="navbar-brand "
-          style={{ textDecoration: "none" }}
+          className="navbar-brand "
+          style={{ textDecoration: "none", color: "black" }}
           to="/"
         >
           Home
         </NavLink>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
@@ -21,29 +22,59 @@ function Navbar() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
         <div
-          class="collapse navbar-collapse flex-grow-0 "
+          className="collapse navbar-collapse flex-grow-0 "
           id="navbarSupportedContent"
         >
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-            <li class="nav-item pe-4">
-              <NavLink class="nav-link" to="/">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
+            <li className="nav-item pe-4">
+              <NavLink
+                className="nav-link"
+                to="/"
+                style={{ textDecoration: "none", color: "black" }}
+              >
                 Home
               </NavLink>
             </li>
-            <li class="nav-item pe-4">
-              <NavLink class="nav-link" to="/about">
+            <li className="nav-item pe-4">
+              <NavLink
+                className="nav-link"
+                to="/about"
+                style={{ textDecoration: "none", color: "black" }}
+              >
                 About
               </NavLink>
             </li>
 
-            <li class="nav-item">
-              <NavLink class="nav-link" to="/dashboard">
+            <li className="nav-item pe-4">
+              <NavLink
+                className="nav-link"
+                to="/dashboard"
+                style={{ textDecoration: "none", color: "black" }}
+              >
                 Dashboard
               </NavLink>
             </li>
+            {login && (
+              <li
+                className="nav-item text-center p-1"
+                style={{ borderRadius: "10px", background: "orangered" }}
+              >
+                <NavLink
+                  className="nav-link m"
+                  to="/"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
+                  onClick={() => setLogin(false)}
+                >
+                  Log Out
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
       </div>
