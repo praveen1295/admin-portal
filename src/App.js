@@ -16,10 +16,18 @@ import { useState } from "react";
 function App() {
   const [login, setLogin] = useState(false);
   const [userList, setUserList] = useState([]);
+  const [selectedUser, setSelectedUser] = useState({});
+  const [index, setIndex] = useState(0);
+
+  const handleSelect = (idx) => {
+    setIndex(idx);
+    const user = userList[idx];
+    setSelectedUser(user);
+  };
   return (
     <Router>
       <div className="App">
-        {console.log(userList)}
+        {console.log(selectedUser)}
         <Navbar login={login} setLogin={setLogin} />
         <hr />
         <Routes>
@@ -28,7 +36,11 @@ function App() {
             path="/dashboard"
             element={
               login ? (
-                <Dashboard userList={userList} setUserList={setUserList} />
+                <Dashboard
+                  userList={userList}
+                  setUserList={setUserList}
+                  handleSelect={handleSelect}
+                />
               ) : (
                 <Navigate replace to={"/"} />
               )
@@ -50,7 +62,12 @@ function App() {
             path="/update-user"
             element={
               login ? (
-                <UpdateUser userList={userList} setUserList={setUserList} />
+                <UpdateUser
+                  userList={userList}
+                  setUserList={setUserList}
+                  selectedUser={selectedUser}
+                  index={index}
+                />
               ) : (
                 <Navigate replace to={"/"} />
               )

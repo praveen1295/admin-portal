@@ -3,7 +3,15 @@
   padding: 0;
   box-sizing: border-box;
 }
-.cp{
+.App {
+  width: 100vw;
+}
+.cp {
   cursor: pointer;
 }
-
+.z {
+  position: fixed;
+  top: 12%;
+  left: 30%;
+  z-index: 10;
+}

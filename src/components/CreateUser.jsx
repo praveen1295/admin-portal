@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../App.css";
 
 const USER = {
-  id:"",
+  id: "",
   userName: "",
   firstName: "",
   lastName: "",
@@ -24,9 +24,8 @@ function CreateUser({ userList, setUserList }) {
   };
 
   const handleSubmit = (e) => {
-    
     e.preventDefault();
-    const newUser = {...user, id: Date.now()}
+    const newUser = { ...user, id: Date.now() };
     const list = [...userList];
     list.push(newUser);
     setUserList(list);
@@ -36,7 +35,7 @@ function CreateUser({ userList, setUserList }) {
   return (
     <div className="d-flex justify-content-center">
       <form
-        className="d-flex flex-column gap-3 border border-4 rounded px-5 py-2"
+        className="d-flex flex-column gap-3 border border-4 rounded px-5 py-2 m-3"
         onSubmit={handleSubmit}
       >
         <h2 className="text-center border-bottom">User Details</h2>
