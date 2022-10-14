@@ -25,7 +25,10 @@ function Login({ setLogin }) {
     }
   };
   return (
-    <div>
+    <div
+      className="d-flex align-items-center flex-column justify-content-center"
+      style={{ height: "75vh" }}
+    >
       {error && <Error>Invalid Admin Details</Error>}
       <form className="d-flex justify-content-center flex-column align-items-center">
         <div className="mb-3 w-40">

@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserDetails from "./UserDetails";
 
-function Dashboard({ userList, setUserList }) {
+function Dashboard({ userList, setUserList, handleSelect }) {
+  // const [filterList, setFilterList]
   const [showDetails, setShowDetails] = useState(false);
   const [search1, setSearch1] = useState(false);
   const [search2, setSearch2] = useState(false);
@@ -10,21 +11,28 @@ function Dashboard({ userList, setUserList }) {
 
   const navigate = useNavigate();
 
-  const userDetail = (user) => {
+  const userDetail = (user, idx) => {
     setShowDetails(true);
     setCurrUser(user);
+    handleSelect(idx);
   };
   const handleDelete = (id) => {
     const newList = userList.filter((user) => id !== user.id);
     setUserList(newList);
   };
+  
+  const statusFilter=(status)=>{
+    const list = [...userList];
+    const newList= list.filter((user)=>user.status===status);
+    
+  }
 
   return (
-    <div>
+    <div className="w-100">
       <div>
         <button
           type="button"
-          className="btn btn-outline-primary"
+          className="btn btn-outline-primary m-2"
           onClick={() => navigate("/create-user")}
         >
           Create User
@@ -35,9 +43,9 @@ function Dashboard({ userList, setUserList }) {
         </div>
       </div>
       {showDetails && (
-        <UserDetails setShowDetails={setShowDetails} user={currUser} />
+        <UserDetails setShowDetails={setShowDetails} user={currUser}/>
       )}
-      <table className="table table-hover table-bordered">
+      <table className="table table-hover table-bordered m-2 text-wrap">
         <thead>
           <tr>
             <th scope="col">No.</th>
@@ -118,7 +126,7 @@ function Dashboard({ userList, setUserList }) {
                 <td>
                   <button
                     className="btn btn-info m-2"
-                    onClick={() => userDetail(user)}
+                    onClick={() => userDetail(user, idx)}
                   >
                     View
                   </button>
